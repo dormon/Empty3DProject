@@ -44,11 +44,11 @@ void createProjection(vars::Vars&vars){
   auto width = windowSize->x;
   auto height = windowSize->y;
   auto aspect = (float)width/(float)height;
-  auto near = vars.getFloat("camera.near");
-  auto far  = vars.getFloat("camera.far" );
+  auto nearv = vars.getFloat("camera.near");
+  auto farv  = vars.getFloat("camera.far" );
   auto fovy = vars.getFloat("camera.fovy");
 
-  vars.reCreate<basicCamera::PerspectiveCamera>("projection",fovy,aspect,near,far);
+  vars.reCreate<basicCamera::PerspectiveCamera>("projection",fovy,aspect,nearv,farv);
 }
 
 void createCamera(vars::Vars&vars){
