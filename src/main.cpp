@@ -14,10 +14,10 @@
 #include<assimp/scene.h>
 #include<assimp/postprocess.h>
 
-class LightFields: public simple3DApp::Application{
+class EmptyProject: public simple3DApp::Application{
  public:
-  LightFields(int argc, char* argv[]) : Application(argc, argv) {}
-  virtual ~LightFields(){}
+  EmptyProject(int argc, char* argv[]) : Application(argc, argv) {}
+  virtual ~EmptyProject(){}
   virtual void draw() override;
 
   vars::Vars vars;
@@ -56,7 +56,7 @@ void createCamera(vars::Vars&vars){
   createView(vars);
 }
 
-void LightFields::init(){
+void EmptyProject::init(){
   vars.add<ge::gl::VertexArray>("emptyVao");
   vars.addFloat("input.sensitivity",0.01f);
   vars.add<glm::uvec2>("windowSize",window->getWidth(),window->getHeight());
@@ -68,7 +68,7 @@ void LightFields::init(){
   createCamera(vars);
 }
 
-void LightFields::draw(){
+void EmptyProject::draw(){
   createCamera(vars);
   basicCamera::CameraTransform*view;
 
@@ -98,12 +98,12 @@ void LightFields::draw(){
   swap();
 }
 
-void LightFields::key(SDL_Event const& event, bool DOWN) {
+void EmptyProject::key(SDL_Event const& event, bool DOWN) {
   auto keys = vars.get<std::map<SDL_Keycode, bool>>("input.keyDown");
   (*keys)[event.key.keysym.sym] = DOWN;
 }
 
-void LightFields::mouseMove(SDL_Event const& e) {
+void EmptyProject::mouseMove(SDL_Event const& e) {
   if(vars.getBool("useOrbitCamera")){
     auto sensitivity = vars.getFloat("input.sensitivity");
     auto orbitCamera =
@@ -142,7 +142,7 @@ void LightFields::mouseMove(SDL_Event const& e) {
   }
 }
 
-void LightFields::resize(uint32_t x,uint32_t y){
+void EmptyProject::resize(uint32_t x,uint32_t y){
   auto windowSize = vars.get<glm::uvec2>("windowSize");
   windowSize->x = x;
   windowSize->y = y;
@@ -152,7 +152,7 @@ void LightFields::resize(uint32_t x,uint32_t y){
 
 
 int main(int argc,char*argv[]){
-  LightFields app{argc, argv};
+  EmptyProject app{argc, argv};
   app.start();
   return EXIT_SUCCESS;
 }
