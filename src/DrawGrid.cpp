@@ -22,8 +22,9 @@ void createGridProgram(vars::Vars&vars){
   out vec4 fColor;
   in vec2 vCoord;
   void main(){
-    vec3 start     = (inverse(view) * vec4(0,0,0,1)).xyz;
-    vec3 direction = (inverse(projection*view) * vec4(vCoord*far,far,far)).xyz;
+    vec3 start           = (inverse(view) * vec4(0,0,0,1)).xyz;
+    vec3 pointOnFarPlane = (inverse(projection*view) * vec4(vCoord*far,far,far)).xyz;
+    vec3 direction = normalize(pointOnFarPlane - start);
     float t = (-3-start.y)/direction.y;
     vec3 gridPosition = start + direction*t;
     float v = pow((1-cos(mod(gridPosition.x,1.f)*3.141592*2)) * (1-cos(mod(gridPosition.z,1.f)*3.141592*2)),.1);
